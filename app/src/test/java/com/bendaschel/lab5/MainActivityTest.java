@@ -99,7 +99,7 @@ public class MainActivityTest {
     }
 
     private void testButtonClick(){
-        MainActivity mainActivity = mActivityController.create().start().get();
+        MainActivity mainActivity = mActivityController.create().start().resume().visible().get();
         View button = mainActivity.findViewById(R.id.btn_clickme);
         long startTime = System.currentTimeMillis();
         button.performClick();
