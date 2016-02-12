@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_button_fragment">ButtonFragmentLandscape</string>
+    <string name="tag_detail_fragment">DetailFragmentLandscape</string>
+</resources>

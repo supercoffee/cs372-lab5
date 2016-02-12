@@ -12,13 +12,13 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="1"
-              android:tag="ButtonFragment"
+              android:tag="@string/tag_button_fragment"
         />
 
     <fragment class="com.bendaschel.lab5.DetailFragment"
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="1"
-              android:tag="DetailFragment"
+              android:tag="@string/tag_detail_fragment"
         />
 </LinearLayout>
