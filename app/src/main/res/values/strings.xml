@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BenDaschelLab5</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_clickme">Click me</string>
+    <string name="clickme">Click me</string>
+</resources>
