@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends Fragment {
 
-    public static final String ARG_TIME = "time";
+    public static final String ARG_STRING_DISPLAY_TEXT = "display_text";
     public static final String TAG = "DetailFragment";
 
     @Bind(R.id.tv_time)
@@ -32,6 +32,11 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(ARG_STRING_DISPLAY_TEXT)){
+            String displayText = args.getString(ARG_STRING_DISPLAY_TEXT);
+            mTextView.setText(displayText);
+        }
     }
 
     @Override
