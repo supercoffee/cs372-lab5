@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.koushikdutta.ion.Ion;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ButtonFragment extends Fragment {
 

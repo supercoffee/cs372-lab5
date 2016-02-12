@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
 
-import com.koushikdutta.ion.Ion;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FragmentManager.enableDebugLogging(true);
         super.onCreate(savedInstanceState);
-        Ion.getDefault(this).configure().setLogging("MyLogs", Log.DEBUG);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mFragmentManager = getSupportFragmentManager();
