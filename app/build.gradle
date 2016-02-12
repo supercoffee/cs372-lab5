@@ -31,3 +31,14 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-all:1.3'
 
 }
+
+task zipTask(type: Zip) {
+    baseName = 'bDaschelLab5'
+    rename 'app-debug.apk', "${baseName}.apk"
+    into baseName
+    from 'build/outputs/apk/app-debug.apk'
+    from 'README.md'
+    from ('src') {
+        into 'src'
+    }
+}
