@@ -1,5 +1,6 @@
 package com.bendaschel.lab5;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -10,10 +11,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -79,5 +82,28 @@ public class MainActivityTest {
         assertThat(timeTextView, notNullValue());
         long displayTime = Long.parseLong(timeTextView.getText().toString());
         assertThat(displayTime, allOf(greaterThanOrEqualTo(startTime), lessThan(endTime)));
+    }
+
+    @Test
+    public void testTextIsRetainedAcrossRotations() throws Exception {
+        MainActivity mainActivityPort = mActivityController.create().start().resume().visible().get();
+        View button = mainActivityPort.findViewById(R.id.btn_clickme);
+        long startTime = System.currentTimeMillis();
+        button.performClick();
+        TextView timeTextView = (TextView) mainActivityPort.findViewById(R.id.tv_time);
+        String originalText =  timeTextView.getText().toString();
+
+        // Destroy and rebuild the activity the way android does
+        Bundle out = new Bundle();
+        mActivityController.saveInstanceState(out).pause().stop().destroy();
+        RuntimeEnvironment.setQualifiers("land");
+        // Need to explicitly create a new ActivityController object after changing runtime environment
+        MainActivity mainActivityLand = Robolectric.buildActivity(MainActivity.class)
+                .create(out).start().restoreInstanceState(out).resume().visible().get();
+        timeTextView = (TextView) mainActivityLand.findViewById(R.id.tv_time);
+        String newText = timeTextView.getText().toString();
+
+        assertThat(Long.parseLong(originalText), greaterThanOrEqualTo(startTime));
+        assertThat(originalText, equalTo(newText));
     }
 }
