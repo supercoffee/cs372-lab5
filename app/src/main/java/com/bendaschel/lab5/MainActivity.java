@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewParent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ButtonFragment.ButtonFragmentListener{
 
     private static final String TAG = "MainActivity";
     private FragmentManager mFragmentManager;
@@ -39,29 +38,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View v){
-        Log.d(TAG, "Button clicked");
-        updateTime();
-    }
-
     private void updateTime() {
         DetailFragment detailFragment = (DetailFragment) mFragmentManager
                 .findFragmentByTag(getString(R.string.tag_detail_fragment));
-
-        if (detailFragment == null) {
-            long currentTime = System.currentTimeMillis();
-            detailFragment = new DetailFragment();
-            Bundle args = new Bundle();
-            args.putString(DetailFragment.ARG_STRING_DISPLAY_TEXT, String.format("%d", currentTime));
-            detailFragment.setArguments(args);
-            mFragmentManager.beginTransaction()
-                    .replace(
-                            R.id.fragment_container,
-                            detailFragment,
-                            getString(R.string.tag_detail_fragment)
-                    )
-                    .addToBackStack(null)
-                    .commit();
+        long currentTime = System.currentTimeMillis();
+        String displayText = String.format("%d", currentTime);
+        if (detailFragment != null) {
+            detailFragment.updateText(displayText);
+            return;
         }
+        detailFragment = new DetailFragment();
+        Bundle args = new Bundle();
+        args.putString(DetailFragment.ARG_STRING_DISPLAY_TEXT, displayText);
+        detailFragment.setArguments(args);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,
+                        detailFragment,
+                        getString(R.string.tag_detail_fragment))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onButtonClicked() {
+        updateTime();
     }
 }

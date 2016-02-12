@@ -9,15 +9,6 @@
             android:layout_height="wrap_content"
             android:text="@string/clickme"
             android:id="@+id/btn_clickme"
-            android:onClick="onClick"
             />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
-
 
 </RelativeLayout>

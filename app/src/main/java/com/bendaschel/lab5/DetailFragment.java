@@ -45,4 +45,10 @@ public class DetailFragment extends Fragment {
         ButterKnife.unbind(this);
         super.onDestroyView();
     }
+
+    public void updateText(String displayText) {
+        if (mTextView != null) {
+            mTextView.setText(displayText);
+        }
+    }
 }

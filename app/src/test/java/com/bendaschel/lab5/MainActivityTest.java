@@ -17,7 +17,7 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
@@ -60,6 +60,16 @@ public class MainActivityTest {
 
     @Test
     public void testButtonClickNormal() throws Exception {
+        testButtonClick();
+    }
+
+    @Test
+    @Config(qualifiers = "land")
+    public void testButtonClickLandscape() throws Exception {
+        testButtonClick();
+    }
+
+    private void testButtonClick(){
         MainActivity mainActivity = mActivityController.create().start().get();
         View button = mainActivity.findViewById(R.id.btn_clickme);
         long startTime = System.currentTimeMillis();
@@ -68,6 +78,6 @@ public class MainActivityTest {
         TextView timeTextView = (TextView) mainActivity.findViewById(R.id.tv_time);
         assertThat(timeTextView, notNullValue());
         long displayTime = Long.parseLong(timeTextView.getText().toString());
-        assertThat(displayTime, allOf(greaterThan(startTime), lessThan(endTime)));
+        assertThat(displayTime, allOf(greaterThanOrEqualTo(startTime), lessThan(endTime)));
     }
 }
