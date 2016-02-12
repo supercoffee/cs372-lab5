@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements ButtonFragment.Bu
         if (mFragmentManager.getBackStackEntryCount() > 0){
             mFragmentManager.popBackStack();
         }
-        if (mFragmentContainer != null){
+        if (mFragmentContainer != null &&
+                mFragmentManager.findFragmentByTag(getString(R.string.tag_button_fragment)) == null){
             Fragment fragment = new ButtonFragment();
             mFragmentManager.beginTransaction()
                     .add(R.id.fragment_container, fragment, getString(R.string.tag_button_fragment))
