@@ -62,6 +62,32 @@ public class MainActivityTest {
     }
 
     @Test
+    @Config(qualifiers = "land")
+    public void testStartInLandscapeAndRotateToPortrait() throws Exception {
+        MainActivity mainActivity = mActivityController.create().start().resume().visible().get();
+        FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+        Fragment buttonFrag = fragmentManager
+                .findFragmentByTag(mainActivity.getString(R.string.tag_button_fragment));
+        Fragment detailFragment = fragmentManager
+                .findFragmentByTag(mainActivity.getString(R.string.tag_detail_fragment));
+        assertThat(buttonFrag, instanceOf(ButtonFragment.class));
+        assertThat(detailFragment, instanceOf(DetailFragment.class));
+
+        RuntimeEnvironment.setQualifiers("");
+        Bundle out = new Bundle();
+        mActivityController.saveInstanceState(out).pause().stop().destroy();
+        mainActivity = Robolectric.buildActivity(MainActivity.class).create(out)
+                .restoreInstanceState(out).start().resume().visible().get();
+        fragmentManager = mainActivity.getSupportFragmentManager();
+        buttonFrag = fragmentManager
+                .findFragmentByTag(mainActivity.getString(R.string.tag_button_fragment));
+        detailFragment = fragmentManager
+                .findFragmentByTag(mainActivity.getString(R.string.tag_detail_fragment));
+        assertThat(buttonFrag, instanceOf(ButtonFragment.class));
+        assertThat(detailFragment, nullValue());
+    }
+
+    @Test
     public void testButtonClickNormal() throws Exception {
         testButtonClick();
     }
